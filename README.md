@@ -11,5 +11,5 @@ On va considérer quatre manières de représenter une image en couleur et donc 
 
 ## Membres du projet
 
-- BOUHMADOU, Ramdane, 1
-- BENSLIMANE, Abdel-latif, 1
+- BOUHMADOU, Ramdane, 1.
+- BENSLIMANE, Abdel-latif, 1.
