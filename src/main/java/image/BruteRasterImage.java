@@ -21,6 +21,11 @@ public class BruteRasterImage implements Image{
     }
     public BruteRasterImage(Color[][]colors){
         Matrices.requiresNonZeroDimensions(colors);
+        Matrices.requiresRectangularMatrix(colors);
+        Matrices.requiresNonNull(colors);
+        this.height=Matrices.getColumnCount(colors);
+        this.width=Matrices.getRowCount(colors);
+        this.pixels=colors.clone();
 
     }
 
@@ -39,11 +44,11 @@ public class BruteRasterImage implements Image{
         return this.height;
     }
 
-    public void setWidth(int width) {
+    protected void setWidth(int width) {
         this.width = width;
     }
 
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         this.height = height;
     }
 
@@ -55,13 +60,19 @@ public class BruteRasterImage implements Image{
         }
     }
     public void setPixelsColor(Color[][]pixels){
+        this.pixels = pixels;
 
     }
     public void setPixelsColor(Color color){
+        for(int x=0;x<width;x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[x][y] = color;
+            }
+        }
 
     }
     public void createRepresentation(){
-
+        this.pixels = new Color[width][height];
     }
 }
 
