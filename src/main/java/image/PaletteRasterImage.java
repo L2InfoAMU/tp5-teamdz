@@ -21,8 +21,7 @@ public class PaletteRasterImage implements Image {
     public PaletteRasterImage(Color[][] pixels) {
         this.width=pixels.length;
         this.height=pixels[0].length;
-        palette = new ArrayList<>();
-        indexesOfColors=new int[width][height];
+        createRepresentation();
         for(int x=0;x< width;x++) {
             for (int y = 0; y < height; y++) {
                 setPixelColor(pixels[x][y],x,y);
@@ -30,7 +29,8 @@ public class PaletteRasterImage implements Image {
         }
     }
     public void createRepresentation(){
-
+        palette = new ArrayList<>();
+        indexesOfColors=new int[width][height];
     }
     public void setPixelColor(Color color,int x, int y){
         if (!palette.contains(color))
