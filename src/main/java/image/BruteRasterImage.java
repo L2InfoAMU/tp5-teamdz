@@ -3,30 +3,20 @@ package image;
 import javafx.scene.paint.Color;
 import util.Matrices;
 
-public class BruteRasterImage implements Image{
+public class BruteRasterImage extends RasterImage implements Image{
     Color[][] pixels;
-    int width;
-    int height;
-
 
     public BruteRasterImage(Color color, int width, int height) {
-        this.width = width;
-        this.height = height;
-        pixels = new Color[width][height];
-        for(int x=0;x<width;x++){
-            for(int y=0;y<height;y++){
-                pixels[x][y]=color;
-            }
-        }
+        super(width ,height);
+        this.createRepresentation();
+        this.setPixelsColor(color);
     }
-    public BruteRasterImage(Color[][]colors){
-        Matrices.requiresNonZeroDimensions(colors);
-        Matrices.requiresRectangularMatrix(colors);
-        Matrices.requiresNonNull(colors);
-        this.height=Matrices.getColumnCount(colors);
-        this.width=Matrices.getRowCount(colors);
-        this.pixels=colors.clone();
 
+
+    public BruteRasterImage(Color[][]colors){
+        super(Matrices.getRowCount(colors),Matrices.getColumnCount(colors));
+        this.createRepresentation();
+        this.setPixelsColor(colors);
     }
 
     @Override
@@ -34,42 +24,26 @@ public class BruteRasterImage implements Image{
         return this.pixels[x][y];
     }
 
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public int getHeight() {
-        return this.height;
-    }
-
-    protected void setWidth(int width) {
-        this.width = width;
-    }
-
-    protected void setHeight(int height) {
-        this.height = height;
-    }
-
     public void setPixelColor(Color color, int x,int y) {
-        for (x=0;x<getWidth();x++){
-            for(y=0;y<getHeight();y++){
-                pixels[x][y] = color;
-            }
-        }
+        pixels[x][y] = color;
     }
     public void setPixelsColor(Color[][]pixels){
-        this.pixels = pixels;
-
-    }
-    public void setPixelsColor(Color color){
-        for(int x=0;x<width;x++) {
-            for (int y = 0; y < height; y++) {
-                pixels[x][y] = color;
+        Matrices.requiresNonNull(pixels);
+        Matrices.requiresRectangularMatrix(pixels);
+        Matrices.requiresNonZeroDimensions(pixels);
+        for (int x=0 ; x<this.getWidth() ; x++){
+            for (int y=0 ; y<this.getHeight() ; y++){
+                setPixelColor(pixels[x][y],x,y);
             }
         }
+    }
+    public void setPixelsColor(Color color){
+        for(int x=0;x< this.getWidth();x++) {
+            for (int y = 0; y < this.getHeight(); y++) {
+                this.setPixelColor(color,x,y);
 
+            }
+        }
     }
     public void createRepresentation(){
         this.pixels = new Color[width][height];
