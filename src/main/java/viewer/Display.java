@@ -1,6 +1,7 @@
 package viewer;
 
 import image.*;
+import image.LogoLISFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -24,10 +25,10 @@ public class Display implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO : rajouter la création d'une fabrique d'image pour initialiser imageFactory
-        imageFactory = new RasterFlagFactory(900, 600,
-                Color.GREEN, Color.WHITE, Color.RED, RasterImageType.SPARSE);
+        //imageFactory = new RasterFlagFactory(900, 600,
+          //      Color.GREEN, Color.WHITE, Color.RED, RasterImageType.SPARSE);
 
-
+        imageFactory = new LogoLISFactory();
         this.image = imageFactory.makeImage();
 
 
